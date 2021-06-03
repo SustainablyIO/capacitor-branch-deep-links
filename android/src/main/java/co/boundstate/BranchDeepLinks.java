@@ -239,10 +239,11 @@ public class BranchDeepLinks extends Plugin {
     }
 
     @PluginMethod
-    public void setRequestMetadataKey(final PluginCall call) {
+    public void setRequestMetadata(final PluginCall call) {
         String metadataKey = call.getString("metadataKey");
+        String metadataValue = call.getString("metadataValue");
 
-        Branch.getInstance().setRequestMetadata("$mixpanel_distinct_id", metadataKey);
+        Branch.getInstance().setRequestMetadata(metadataKey, metadataValue);
 
         call.success();
     }

@@ -16,7 +16,7 @@ public class BranchDeepLinks: CAPPlugin {
                 object: nil
         )
     }
-    
+
     @objc public func setBranchService(branchService: Any) {
         self.branchService = branchService as! BranchService
     }
@@ -52,7 +52,7 @@ public class BranchDeepLinks: CAPPlugin {
         let linkProperties = getLinkProperties(analytics: analytics, properties: properties)
         let params = NSMutableDictionary();
         params.addEntries(from: linkProperties.controlParams)
-        
+
         branchService.generateShortUrl(params: params as? [AnyHashable : Any] ?? [:], linkProperties: linkProperties) { (url, error) in
             if (error == nil) {
                 call.success([
@@ -69,15 +69,15 @@ public class BranchDeepLinks: CAPPlugin {
         let properties = call.getObject("properties") ?? [:]
         let shareText = call.getString("shareText", "Share Link")
         let linkProperties = getLinkProperties(analytics: analytics, properties: properties)
-        
+
         let params = NSMutableDictionary();
         params.addEntries(from: linkProperties.controlParams)
-        
+
         let buo = BranchUniversalObject.init()
         DispatchQueue.main.async {
             buo.showShareSheet(with: linkProperties, andShareText: shareText, from: self.bridge.viewController, completion: nil)
         }
-        
+
         call.success()
     }
 
@@ -113,7 +113,7 @@ public class BranchDeepLinks: CAPPlugin {
         }
         let metaData = call.getObject("metaData") ?? [:]
         let event = BranchEvent.customEvent(withName: eventName)
-        
+
         for (key, value) in metaData {
             if key == "transactionID" {
                 event.transactionID = value as? String
@@ -141,7 +141,7 @@ public class BranchDeepLinks: CAPPlugin {
                 event.customData = value as? [String : String] ?? [:]
             }
         }
-        
+
         event.logEvent()
 
         call.success()
@@ -164,12 +164,13 @@ public class BranchDeepLinks: CAPPlugin {
             ])
         }
     }
-    
-    @objc func setRequestMetadataKey(_ call: CAPPluginCall) {
+
+    @objc func setRequestMetadata(_ call: CAPPluginCall) {
         let metadataKey = call.getString("metadataKey") ?? ""
-        
-        Branch.getInstance().setRequestMetadataKey("$mixpanel_distinct_id", value: metadataKey)
-        
+        let metadataValue = call.getString("metadataValue") ?? ""
+
+        Branch.getInstance().setRequestMetadataKey(metadataKey, value: metadataValue)
+
         call.success()
     }
 
@@ -184,10 +185,10 @@ public class BranchDeepLinks: CAPPlugin {
             }
         }
     }
-    
+
     func getLinkProperties(analytics: [String: Any], properties: [String: Any]) -> BranchLinkProperties {
         let linkProperties = BranchLinkProperties.init()
-        
+
         for (key, value) in analytics {
             if key == "alias" {
                 linkProperties.alias = value as? String
@@ -205,11 +206,11 @@ public class BranchDeepLinks: CAPPlugin {
                 linkProperties.tags = value as? [Any]
             }
         }
-        
+
         for (key, value) in properties {
             linkProperties.addControlParam(key, withValue: value as? String)
         }
-        
+
         return linkProperties
     }
 }

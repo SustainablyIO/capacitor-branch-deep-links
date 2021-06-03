@@ -1,6 +1,6 @@
 {
   "name": "@sustainablyio/capacitor-branch-deep-links",
-  "version": "3.1.0",
+  "version": "3.1.2",
   "description": "Capacitor plugin for Branch.io deep links",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",
@@ -40,7 +40,7 @@
     "dist/",
     "ios/",
     "android/",
-    "CapacitorBranchDeepLinks.podspec"
+    "SustainablyioCapacitorBranchDeepLinks.podspec"
   ],
   "keywords": [
     "branch.io",

@@ -164,6 +164,14 @@ public class BranchDeepLinks: CAPPlugin {
             ])
         }
     }
+    
+    @objc func setRequestMetadataKey(_ call: CAPPluginCall) {
+        let metadataKey = call.getString("metadataKey") ?? ""
+        
+        Branch.getInstance().setRequestMetadataKey("$mixpanel_distinct_id", value: metadataKey)
+        
+        call.success()
+    }
 
     @objc func logout(_ call: CAPPluginCall) {
         branchService.logout() {(loggedOut, error) in

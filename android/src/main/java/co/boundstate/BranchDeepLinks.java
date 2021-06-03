@@ -48,7 +48,7 @@ public class BranchDeepLinks extends Plugin {
     @Override
     protected void handleOnStart() {
         this.activity = getActivity();
-        
+
         super.handleOnStart();
         Branch.sessionBuilder(getActivity()).withCallback(callback).withData(mData).init();
     }
@@ -236,6 +236,15 @@ public class BranchDeepLinks extends Plugin {
                     }
                 }
             );
+    }
+
+    @PluginMethod
+    public void setRequestMetadataKey(final PluginCall call) {
+        String metadataKey = call.getString("metadataKey");
+
+        Branch.getInstance().setRequestMetadata("$mixpanel_distinct_id", metadataKey);
+
+        call.success();
     }
 
     @PluginMethod

@@ -67,6 +67,14 @@ export class BranchDeepLinksWeb extends WebPlugin
     );
   }
 
+  setRequestMetadataKey(_: {
+    metadataKey: string;
+  }): Promise<BranchReferringParamsResponse> {
+    return Promise.reject(
+      new Error('BranchDeepLinks does not have web implementation'),
+    );
+  }
+
   logout(): Promise<BranchLoggedOutResponse> {
     return Promise.reject(
       new Error('BranchDeepLinks does not have web implementation'),

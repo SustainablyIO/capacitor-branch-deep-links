@@ -1,5 +1,5 @@
 {
-  "name": "capacitor-branch-deep-links",
+  "name": "@sustainablyio/capacitor-branch-deep-links",
   "version": "3.1.0",
   "description": "Capacitor plugin for Branch.io deep links",
   "main": "dist/plugin.js",
@@ -62,7 +62,7 @@
   "swiftlint": "@ionic/swiftlint-config",
   "repository": {
     "type": "git",
-    "url": "https://github.com/BranchMetrics/capacitor-branch-deep-links"
+    "url": "https://github.com/SustainablyIO/capacitor-branch-deep-links"
   },
   "bugs": {
     "url": "https://github.com/BranchMetrics/capacitor-branch-deep-links/issues"
